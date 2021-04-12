@@ -5,8 +5,8 @@
 
     <fragment
         android:id="@+id/banksListFragment"
-        android:name="com.example.bankdetails.ui.home.BanksListFragment"
-        android:label="BanksListFragment" >
+        android:name="com.example.bankdetails.ui.home.BanksFragment"
+        android:label="BanksList" >
         <action
             android:id="@+id/action_banksListFragment_to_bankDetailsFragment"
             app:destination="@id/bankDetailsFragment" />
@@ -14,5 +14,9 @@
     <fragment
         android:id="@+id/bankDetailsFragment"
         android:name="com.example.bankdetails.ui.details.BankDetailsFragment"
-        android:label="BankDetailsFragment" />
+        android:label="BankDetails" >
+        <argument
+            android:name="ifscCode"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.bankdetails.data.model.BanksListData
+import com.example.bankdetails.data.model.BankInfo
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class BanksListViewModel @Inject constructor(private val banksListUsecase: BanksListUsecase) :
+class BanksViewModel @Inject constructor(private val banksUsecase: BanksUsecase) :
     ViewModel() {
 
-    private var banksList = MutableLiveData<List<BanksListData>>()
-    val _banksList: LiveData<List<BanksListData>> = banksList
+    private var banksList = MutableLiveData<List<BankInfo>>()
+    val _banksList: LiveData<List<BankInfo>> = banksList
 
     init {
         getBanksListData()
@@ -21,7 +21,7 @@ class BanksListViewModel @Inject constructor(private val banksListUsecase: Banks
     private fun getBanksListData() {
 
         viewModelScope.launch {
-            banksList.value=banksListUsecase.getBankListData()
+            banksList.value=banksUsecase.getBankListData()
         }
     }
 

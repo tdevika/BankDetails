@@ -8,23 +8,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bankdetails.BanksApplication
-import com.example.bankdetails.databinding.FragmentBanksListBinding
-import com.example.bankdetails.utils.BanksListViewModelFactory
+import com.example.bankdetails.databinding.FragmentBanksBinding
+import com.example.bankdetails.utils.BanksViewModelFactory
 import javax.inject.Inject
 
-class BanksListFragment : Fragment() {
+class BanksFragment : Fragment() {
 
 
     @Inject
-    lateinit var viewModelFactory: BanksListViewModelFactory
+    lateinit var viewModelFactory: BanksViewModelFactory
 
     @Inject
     lateinit var banksListAdapter: BanksListAdapter
 
-    lateinit var viewModel: BanksListViewModel
-    lateinit var binding: FragmentBanksListBinding
+    lateinit var viewModel: BanksViewModel
+    lateinit var binding: FragmentBanksBinding
 
 
     override fun onAttach(context: Context) {
@@ -37,7 +38,7 @@ class BanksListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBanksListBinding.inflate(inflater, container, false)
+        binding = FragmentBanksBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
@@ -53,17 +54,28 @@ class BanksListFragment : Fragment() {
         viewModel._banksList.observe(viewLifecycleOwner, Observer {
             banksListAdapter.submitList(it)
         })
+
+        banksListAdapter.setListener { ifscCode: String ->
+            findNavController().navigate(
+                BanksFragmentDirections.actionBanksListFragmentToBankDetailsFragment(
+                    ifscCode
+                )
+            )
+        }
     }
 
     private fun setupRecyclerView() {
         binding.recycler.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             adapter = banksListAdapter
         }
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, viewModelFactory).get(BanksListViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BanksViewModel::class.java)
     }
 }
