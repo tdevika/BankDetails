@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class BanksUsecase @Inject constructor(val repository: BanksRepository) {
+class BanksUsecase @Inject constructor(private val repository: BanksRepository) {
     suspend fun getBankListData() :List<BankInfo> =
         withContext(Dispatchers.IO) {
             repository.getBanks()

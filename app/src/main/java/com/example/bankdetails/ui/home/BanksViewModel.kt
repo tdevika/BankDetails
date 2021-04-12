@@ -11,8 +11,8 @@ import javax.inject.Inject
 class BanksViewModel @Inject constructor(private val banksUsecase: BanksUsecase) :
     ViewModel() {
 
-    private var banksList = MutableLiveData<List<BankInfo>>()
-    val _banksList: LiveData<List<BankInfo>> = banksList
+    private var _banks = MutableLiveData<List<BankInfo>>()
+    val banks: LiveData<List<BankInfo>> = _banks
 
     init {
         getBanksListData()
@@ -21,7 +21,7 @@ class BanksViewModel @Inject constructor(private val banksUsecase: BanksUsecase)
     private fun getBanksListData() {
 
         viewModelScope.launch {
-            banksList.value=banksUsecase.getBankListData()
+            _banks.value = banksUsecase.getBankListData()
         }
     }
 

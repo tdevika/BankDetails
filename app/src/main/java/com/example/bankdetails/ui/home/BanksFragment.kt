@@ -51,7 +51,7 @@ class BanksFragment : Fragment() {
     }
 
     private fun setObserver() {
-        viewModel._banksList.observe(viewLifecycleOwner, Observer {
+        viewModel.banks.observe(viewLifecycleOwner, {
             banksListAdapter.submitList(it)
         })
 
