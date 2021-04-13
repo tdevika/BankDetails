@@ -1,29 +1,19 @@
-package com.example.bankdetails.ui.details
+package com.example.bankdetails.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.bankdetails.BanksApplication
+import androidx.fragment.app.viewModels
 import com.example.bankdetails.databinding.FragmentBankDetailsBinding
-import com.example.bankdetails.utils.BanksViewModelFactory
-import javax.inject.Inject
+import com.example.bankdetails.viewmodel.HomeViewModel
 
 class BankDetailsFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: BanksViewModelFactory
+    private val homeViewModel: HomeViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
-    lateinit var viewModel: BankDetailsViewModel
     lateinit var binding: FragmentBankDetailsBinding
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as BanksApplication).appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,18 +22,13 @@ class BankDetailsFragment : Fragment() {
     ): View {
         binding = FragmentBankDetailsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = homeViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setViewModel()
         val ifscCode = BankDetailsFragmentArgs.fromBundle(requireArguments()).ifscCode
-        viewModel.getBankDetails(ifscCode)
-    }
-
-    private fun setViewModel() {
-        viewModel = ViewModelProvider(this, viewModelFactory).get(BankDetailsViewModel::class.java)
-        binding.viewModel = viewModel
+        homeViewModel.getBankDetails(ifscCode)
     }
 }

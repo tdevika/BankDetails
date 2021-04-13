@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.bankdetails.ui.details.BankDetailsViewModel" />
+            type="com.example.bankdetails.viewmodel.HomeViewModel" />
     </data>
 
     <ScrollView
@@ -33,7 +33,7 @@
                     app:layout_constraintGuide_percent="0.4" />
 
                 <TextView
-                    android:id="@+id/bank_label"
+                    android:id="@+id/bankLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Bank Name "
@@ -52,7 +52,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/ifsc_label"
+                    android:id="@+id/ifscLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="IFSC"
@@ -72,7 +72,7 @@
                     app:layout_constraintTop_toBottomOf="@id/bank" />
 
                 <TextView
-                    android:id="@+id/branch_label"
+                    android:id="@+id/branchLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Branch "
@@ -91,7 +91,7 @@
                     app:layout_constraintTop_toBottomOf="@id/ifsc" />
 
                 <TextView
-                    android:id="@+id/contact_label"
+                    android:id="@+id/contactLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Contact "
@@ -110,14 +110,14 @@
                     app:layout_constraintTop_toBottomOf="@id/branch" />
 
                 <TextView
-                    android:id="@+id/city_label"
+                    android:id="@+id/cityLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="City "
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/city"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/contact_label" />
+                    app:layout_constraintTop_toBottomOf="@id/contactLabel" />
 
                 <TextView
                     android:id="@+id/city"
@@ -130,7 +130,7 @@
                     app:layout_constraintTop_toBottomOf="@id/contact" />
 
                 <TextView
-                    android:id="@+id/rtgs_label"
+                    android:id="@+id/rtgsLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="RTGS "
@@ -149,7 +149,7 @@
                     app:layout_constraintTop_toBottomOf="@id/city" />
 
                 <TextView
-                    android:id="@+id/district_label"
+                    android:id="@+id/districtLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="District "
@@ -168,7 +168,7 @@
                     app:layout_constraintTop_toBottomOf="@id/rtgs" />
 
                 <TextView
-                    android:id="@+id/state_label"
+                    android:id="@+id/stateLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="State "
@@ -187,7 +187,7 @@
                     app:layout_constraintTop_toBottomOf="@id/district" />
 
                 <TextView
-                    android:id="@+id/address_label"
+                    android:id="@+id/addressLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Address"

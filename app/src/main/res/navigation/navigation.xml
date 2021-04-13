@@ -5,15 +5,15 @@
 
     <fragment
         android:id="@+id/banksListFragment"
-        android:name="com.example.bankdetails.ui.home.BanksFragment"
+        android:name="com.example.bankdetails.fragment.BanksFragment"
         android:label="BanksList" >
         <action
-            android:id="@+id/action_banksListFragment_to_bankDetailsFragment"
+            android:id="@+id/navigate_to_bankDetailsFragment"
             app:destination="@id/bankDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/bankDetailsFragment"
-        android:name="com.example.bankdetails.ui.details.BankDetailsFragment"
+        android:name="com.example.bankdetails.fragment.BankDetailsFragment"
         android:label="BankDetails" >
         <argument
             android:name="ifscCode"

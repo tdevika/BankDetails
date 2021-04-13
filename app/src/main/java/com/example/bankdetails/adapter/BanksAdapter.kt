@@ -1,17 +1,17 @@
-package com.example.bankdetails.ui.home
+package com.example.bankdetails.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bankdetails.data.model.BankInfo
+import com.example.bankdetails.model.BankInfo
 import com.example.bankdetails.databinding.ItemBanksBinding
-import javax.inject.Inject
+import com.example.bankdetails.fragment.BanksFragmentDirections
 
-class BanksListAdapter @Inject constructor() :
-    ListAdapter<BankInfo, BanksListAdapter.BanksListViewHolder>(diffUtils) {
-    private lateinit var callback: (String) -> Unit
+class BanksAdapter :
+    ListAdapter<BankInfo, BanksAdapter.BanksListViewHolder>(diffUtils) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BanksListViewHolder {
         val binding =
             ItemBanksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,20 +22,15 @@ class BanksListAdapter @Inject constructor() :
         holder.bind(getItem(position))
     }
 
-    fun setListener(ifsc: (String) -> Unit) {
-        this.callback = ifsc
-    }
-
     inner class BanksListViewHolder(private val binding: ItemBanksBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: BankInfo) {
             binding.bankData = item
             itemView.setOnClickListener {
-                callback(item.ifsc)
+                binding.root.findNavController().navigate( BanksFragmentDirections.navigateToBankDetailsFragment(
+                    item.ifsc))
             }
         }
-
-
     }
 }
 
