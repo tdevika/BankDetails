@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.bankdetails.databinding.FragmentBankDetailsBinding
-import com.example.bankdetails.viewmodel.HomeViewModel
+import com.example.bankdetails.viewmodel.BanksViewModel
 
 class BankDetailsFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val banksViewModel: BanksViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     lateinit var binding: FragmentBankDetailsBinding
 
@@ -22,13 +22,13 @@ class BankDetailsFragment : Fragment() {
     ): View {
         binding = FragmentBankDetailsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = homeViewModel
+        binding.viewModel = banksViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val ifscCode = BankDetailsFragmentArgs.fromBundle(requireArguments()).ifscCode
-        homeViewModel.getBankDetails(ifscCode)
+        banksViewModel.getBankDetails(ifscCode)
     }
 }

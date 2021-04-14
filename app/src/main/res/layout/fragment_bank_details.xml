@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.bankdetails.viewmodel.HomeViewModel" />
+            type="com.example.bankdetails.viewmodel.BanksViewModel" />
     </data>
 
     <ScrollView

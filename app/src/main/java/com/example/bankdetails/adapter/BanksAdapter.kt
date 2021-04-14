@@ -2,15 +2,14 @@ package com.example.bankdetails.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bankdetails.model.BankInfo
 import com.example.bankdetails.databinding.ItemBanksBinding
-import com.example.bankdetails.fragment.BanksFragmentDirections
+import com.example.bankdetails.fragment.BankSelected
 
-class BanksAdapter :
+class BanksAdapter(private val bankSelectedDelegate: BankSelected) :
     ListAdapter<BankInfo, BanksAdapter.BanksListViewHolder>(diffUtils) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BanksListViewHolder {
         val binding =
@@ -27,8 +26,7 @@ class BanksAdapter :
         fun bind(item: BankInfo) {
             binding.bankData = item
             itemView.setOnClickListener {
-                binding.root.findNavController().navigate( BanksFragmentDirections.navigateToBankDetailsFragment(
-                    item.ifsc))
+                bankSelectedDelegate.onBankSelected(item.ifsc)
             }
         }
     }

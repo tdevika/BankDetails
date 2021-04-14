@@ -1,23 +1,22 @@
 package com.example.bankdetails.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentBanksBinding
-import com.example.bankdetails.viewmodel.HomeViewModel
+import com.example.bankdetails.viewmodel.BanksViewModel
 
-class BanksFragment : Fragment() {
+class BankFragment : Fragment(),BankSelected {
 
     private val banksAdapter: BanksAdapter by lazy {
-        BanksAdapter()
+        BanksAdapter(this)
     }
 
-    private val homeViewModel: HomeViewModel by viewModels(ownerProducer = { requireParentFragment() })
+    private val banksViewModel: BanksViewModel by viewModels(ownerProducer = { requireParentFragment() })
     lateinit var binding: FragmentBanksBinding
 
     override fun onCreateView(
@@ -27,6 +26,7 @@ class BanksFragment : Fragment() {
     ): View {
         binding = FragmentBanksBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -37,7 +37,7 @@ class BanksFragment : Fragment() {
     }
 
     private fun setObserver() {
-        homeViewModel.banks.observe(viewLifecycleOwner, {
+        banksViewModel.banks.observe(viewLifecycleOwner, {
             banksAdapter.submitList(it)
         })
     }
@@ -52,4 +52,13 @@ class BanksFragment : Fragment() {
             adapter = banksAdapter
         }
     }
+
+    override fun onBankSelected(ifscCode: String) {
+        binding.root.findNavController().navigate( BankFragmentDirections.navigateToBankDetailsFragment(
+            ifscCode))
+    }
+}
+
+interface BankSelected{
+    fun onBankSelected(ifscCode:String)
 }

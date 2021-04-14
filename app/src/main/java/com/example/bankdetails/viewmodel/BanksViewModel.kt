@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.bankdetails.model.BankInfo
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class BanksViewModel : ViewModel() {
 
     val bankDetails = MutableLiveData<BankInfo>()
     val banks = MutableLiveData<List<BankInfo>>()
