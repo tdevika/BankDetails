@@ -10,7 +10,7 @@ import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentBanksBinding
 import com.example.bankdetails.viewmodel.BanksViewModel
 
-class BankFragment : Fragment(),BankSelected {
+class BanksFragment : Fragment(),BankSelected {
 
     private val banksAdapter: BanksAdapter by lazy {
         BanksAdapter(this)
@@ -54,7 +54,7 @@ class BankFragment : Fragment(),BankSelected {
     }
 
     override fun onBankSelected(ifscCode: String) {
-        binding.root.findNavController().navigate( BankFragmentDirections.navigateToBankDetailsFragment(
+        binding.root.findNavController().navigate( BanksFragmentDirections.navigateToBankDetailsFragment(
             ifscCode))
     }
 }
