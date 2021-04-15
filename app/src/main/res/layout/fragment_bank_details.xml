@@ -1,16 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.details.BankDetailsFragment">
-        <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.bankdetails.viewmodel.BanksViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="BanksList"
-            android:gravity="center"/>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.4" />
+
+                <TextView
+                    android:id="@+id/bankLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bank Name "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/bank"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/bank"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.bankDetails.bank}"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/ifscLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="IFSC"
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/ifsc"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/ifsc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.ifsc}"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/bank" />
+
+                <TextView
+                    android:id="@+id/branchLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Branch "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/branch"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/branch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.branch}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/ifsc" />
+
+                <TextView
+                    android:id="@+id/contactLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Contact "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/contact"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.contact}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/branch" />
+
+                <TextView
+                    android:id="@+id/cityLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="City "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/city"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/contactLabel" />
+
+                <TextView
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.city}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/contact" />
+
+                <TextView
+                    android:id="@+id/rtgsLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="RTGS "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/rtgs"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/rtgs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{String.valueOf(viewModel.bankDetails.rtgs)}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/city" />
+
+                <TextView
+                    android:id="@+id/districtLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="District "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/district"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/district"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.district}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/rtgs" />
+
+                <TextView
+                    android:id="@+id/stateLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="State "
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/state"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/state"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.state}"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/district" />
+
+                <TextView
+                    android:id="@+id/addressLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/address"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.address}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/state" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 </layout>
