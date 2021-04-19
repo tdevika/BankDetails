@@ -51,7 +51,7 @@ class SearchFragment : Fragment(), BankSelected {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     hideSoftInput()
-                    return true
+                    return false
                 }
                 override fun onQueryTextChange(query: String): Boolean {
                     if (query.length > 2) {

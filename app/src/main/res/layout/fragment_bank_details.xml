@@ -20,7 +20,7 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:contentInsetStart="0dp"
         app:contentInsetStart="0dp"
@@ -67,7 +67,7 @@
                     android:id="@+id/bank"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.bankDetails.BANK}"
+                    android:text="@{viewModel.bankDetails.bank}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/guideline"
@@ -87,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.IFSC}"
+                    android:text="@{viewModel.bankDetails.ifsc}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/guideline"
@@ -107,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.BRANCH}"
+                    android:text="@{viewModel.bankDetails.branch}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/ifsc" />
@@ -126,7 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.CONTACT}"
+                    android:text="@{viewModel.bankDetails.contact}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/branch" />
@@ -146,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.CITY}"
+                    android:text="@{viewModel.bankDetails.city}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/contact" />
@@ -165,7 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{String.valueOf(viewModel.bankDetails.RTGS)}"
+                    android:text="@{String.valueOf(viewModel.bankDetails.rtgs)}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/city" />
@@ -184,7 +184,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.DISTRICT}"
+                    android:text="@{viewModel.bankDetails.district}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/rtgs" />
@@ -203,7 +203,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.STATE}"
+                    android:text="@{viewModel.bankDetails.state}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/district" />
@@ -222,7 +222,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.ADDRESS}"
+                    android:text="@{viewModel.bankDetails.address}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline"
@@ -241,7 +241,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.MICR}"
+                    android:text="@{viewModel.bankDetails.micr}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline"
