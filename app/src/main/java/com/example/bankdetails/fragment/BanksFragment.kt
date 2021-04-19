@@ -2,21 +2,13 @@ package com.example.bankdetails.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.bankdetails.adapter.BanksAdapter
+import com.example.bankdetails.R
 import com.example.bankdetails.databinding.FragmentBanksBinding
-import com.example.bankdetails.viewmodel.BanksViewModel
 
-class BanksFragment : Fragment(),BankSelected {
-
-    private val banksAdapter: BanksAdapter by lazy {
-        BanksAdapter(this)
-    }
-
-    private val banksViewModel: BanksViewModel by viewModels(ownerProducer = { requireParentFragment() })
+class BanksFragment : Fragment() {
     lateinit var binding: FragmentBanksBinding
 
     override fun onCreateView(
@@ -32,33 +24,22 @@ class BanksFragment : Fragment(),BankSelected {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        setObserver()
+        setToolbar()
     }
 
-    private fun setObserver() {
-        banksViewModel.banks.observe(viewLifecycleOwner, {
-            banksAdapter.submitList(it)
-        })
+    private fun setToolbar() {
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
     }
 
-    private fun setupRecyclerView() {
-        binding.recycler.apply {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-            adapter = banksAdapter
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_search, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.search_banks) {
+            binding.root.findNavController()
+                .navigate(BanksFragmentDirections.navigateToSearchFragment())
         }
+        return super.onOptionsItemSelected(item)
     }
-
-    override fun onBankSelected(ifscCode: String) {
-        binding.root.findNavController().navigate( BanksFragmentDirections.navigateToBankDetailsFragment(
-            ifscCode))
-    }
-}
-
-interface BankSelected{
-    fun onBankSelected(ifscCode:String)
 }

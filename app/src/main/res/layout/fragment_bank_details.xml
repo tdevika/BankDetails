@@ -8,10 +8,32 @@
             name="viewModel"
             type="com.example.bankdetails.viewmodel.BanksViewModel" />
     </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:contentInsetStart="0dp"
+        app:contentInsetStart="0dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:contentInsetStartWithNavigation="0dp">
+    </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -45,7 +67,7 @@
                     android:id="@+id/bank"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.bankDetails.bank}"
+                    android:text="@{viewModel.bankDetails.BANK}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/guideline"
@@ -65,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.ifsc}"
+                    android:text="@{viewModel.bankDetails.IFSC}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/guideline"
@@ -85,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.branch}"
+                    android:text="@{viewModel.bankDetails.BRANCH}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/ifsc" />
@@ -104,7 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.contact}"
+                    android:text="@{viewModel.bankDetails.CONTACT}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/branch" />
@@ -124,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.city}"
+                    android:text="@{viewModel.bankDetails.CITY}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/contact" />
@@ -143,7 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{String.valueOf(viewModel.bankDetails.rtgs)}"
+                    android:text="@{String.valueOf(viewModel.bankDetails.RTGS)}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/city" />
@@ -162,7 +184,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.district}"
+                    android:text="@{viewModel.bankDetails.DISTRICT}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/rtgs" />
@@ -181,7 +203,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.state}"
+                    android:text="@{viewModel.bankDetails.STATE}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/district" />
@@ -200,12 +222,33 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{viewModel.bankDetails.address}"
+                    android:text="@{viewModel.bankDetails.ADDRESS}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/state" />
+                <TextView
+                    android:id="@+id/micrLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="MICR"
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/micr"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/micr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.MICR}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/address" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

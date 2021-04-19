@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bankdetails.model.BankInfo
-import com.example.bankdetails.databinding.ItemBanksBinding
+import com.example.bankdetails.databinding.ItemIfscsBinding
 import com.example.bankdetails.fragment.BankSelected
 
 class BanksAdapter(private val bankSelectedDelegate: BankSelected) :
-    ListAdapter<BankInfo, BanksAdapter.BanksListViewHolder>(diffUtils) {
+    ListAdapter<String, BanksAdapter.BanksListViewHolder>(diffUtils) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BanksListViewHolder {
         val binding =
-            ItemBanksBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemIfscsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BanksListViewHolder(binding)
     }
 
@@ -21,23 +20,23 @@ class BanksAdapter(private val bankSelectedDelegate: BankSelected) :
         holder.bind(getItem(position))
     }
 
-    inner class BanksListViewHolder(private val binding: ItemBanksBinding) :
+    inner class BanksListViewHolder(private val binding: ItemIfscsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BankInfo) {
-            binding.bankData = item
+        fun bind(item: String) {
+            binding.ifscData = item
             itemView.setOnClickListener {
-                bankSelectedDelegate.onBankSelected(item.ifsc)
+                bankSelectedDelegate.onBankSelected(item)
             }
         }
     }
 }
 
-val diffUtils = object : DiffUtil.ItemCallback<BankInfo>() {
-    override fun areItemsTheSame(oldItem: BankInfo, newItem: BankInfo): Boolean {
-        return oldItem.bank == newItem.bank
+val diffUtils = object : DiffUtil.ItemCallback<String>() {
+    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: BankInfo, newItem: BankInfo): Boolean {
+    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
         return oldItem == newItem
     }
 
