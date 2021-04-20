@@ -13,6 +13,7 @@ import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentSearchBinding
 import com.example.bankdetails.utils.BankSelected
 import com.example.bankdetails.utils.hideSoftInput
+import com.example.bankdetails.utils.isValidIFSCode
 import com.example.bankdetails.utils.showSoftInput
 import com.example.bankdetails.viewmodel.BanksViewModel
 import kotlinx.android.synthetic.main.fragment_search.view.*
@@ -24,7 +25,7 @@ class SearchFragment : Fragment(), BankSelected {
         BanksAdapter(this)
     }
 
-    private val banksViewModel: BanksViewModel by viewModels({requireActivity()})
+    private val banksViewModel: BanksViewModel by viewModels({ requireActivity() })
     lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
@@ -54,6 +55,7 @@ class SearchFragment : Fragment(), BankSelected {
                     hideSoftInput()
                     return false
                 }
+
                 override fun onQueryTextChange(query: String): Boolean {
                     if (query.length > 2) {
                         banksViewModel.onSearchQueryChanged(query)
