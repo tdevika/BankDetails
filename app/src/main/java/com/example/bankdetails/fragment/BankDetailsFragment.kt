@@ -32,15 +32,20 @@ class BankDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setToolbar()
         val ifscCode = BankDetailsFragmentArgs.fromBundle(requireArguments()).ifscCode
-
         banksViewModel.getBankDetails(ifscCode)
-
+        binding.favorite.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                banksViewModel.setFavorite()
+            }else{
+                banksViewModel.deleteFavorite(ifscCode)
+            }
+        }
     }
 
     private fun setToolbar() {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         binding.toolbar.setNavigationOnClickListener { view ->
-            view.findNavController().navigateUp()
+            view.findNavController().navigate(BankDetailsFragmentDirections.actionBankDetailsFragmentToBanksFragment())
         }
     }
 }

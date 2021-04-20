@@ -29,11 +29,12 @@ data class BankDetails(
     val center: String,
     @SerializedName("MICR")
     val micr: String,
+    var isFav: Boolean = false
 )
 
 @Entity(tableName = "favorite_banks")
 data class FavoriteBank(
-    @PrimaryKey val IFSC: String,
-    val BANK: String
+    @PrimaryKey val ifsc: String,
+    val bank: String,
 )
 

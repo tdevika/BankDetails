@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.example.bankdetails.viewmodel.BanksViewModel" />
@@ -45,6 +45,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
                 android:padding="16dp">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -55,29 +56,10 @@
                     app:layout_constraintGuide_percent="0.4" />
 
                 <TextView
-                    android:id="@+id/bankLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Bank Name "
-                    android:textSize="@dimen/space_16sp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/bank"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/bank"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.bankDetails.bank}"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:id="@+id/ifscLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="IFSC"
+                    android:text="@string/ifscLabel"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/ifsc"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -86,12 +68,39 @@
                     android:id="@+id/ifsc"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@{viewModel.bankDetails.ifsc}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toBottomOf="@id/bank" />
+                    app:layout_constraintTop_toTopOf="parent" />
+                <CheckBox
+                    android:id="@+id/favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_favorite"
+                    android:checked="@{viewModel.bankDetails.isFav}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@id/ifsc"
+                    />
+                <TextView
+                    android:id="@+id/bankLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bank_name"
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/bank"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/bank"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.bank}"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/ifsc" />
 
                 <TextView
                     android:id="@+id/branchLabel"
@@ -110,13 +119,13 @@
                     android:text="@{viewModel.bankDetails.branch}"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/guideline"
-                    app:layout_constraintTop_toBottomOf="@id/ifsc" />
+                    app:layout_constraintTop_toBottomOf="@id/bank" />
 
                 <TextView
                     android:id="@+id/contactLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Contact "
+                    android:text="@string/contact"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/contact"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -135,7 +144,7 @@
                     android:id="@+id/cityLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="City "
+                    android:text="@string/city"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/city"
                     app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +164,7 @@
                     android:id="@+id/rtgsLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="RTGS "
+                    android:text="@string/rtgs"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/rtgs"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -174,7 +183,7 @@
                     android:id="@+id/districtLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="District "
+                    android:text="@string/district"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/district"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -193,7 +202,7 @@
                     android:id="@+id/stateLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="State "
+                    android:text="@string/state"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/state"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -212,7 +221,7 @@
                     android:id="@+id/addressLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Address"
+                    android:text="@string/address"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/address"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -231,7 +240,7 @@
                     android:id="@+id/micrLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="MICR"
+                    android:text="@string/micr"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/micr"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -250,5 +259,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progress="25"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

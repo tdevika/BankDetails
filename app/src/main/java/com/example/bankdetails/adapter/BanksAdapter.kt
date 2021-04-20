@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bankdetails.databinding.ItemIfscsBinding
-import com.example.bankdetails.fragment.BankSelected
+import com.example.bankdetails.utils.BankSelected
 
 class BanksAdapter(private val bankSelectedDelegate: BankSelected) :
     ListAdapter<String, BanksAdapter.BanksListViewHolder>(diffUtils) {

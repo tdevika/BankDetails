@@ -10,6 +10,9 @@
         <action
             android:id="@+id/navigate_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_banksFragment_to_bankDetailsFragment"
+            app:destination="@id/bankDetailsFragment" />
     </fragment>
 
     <fragment
@@ -28,5 +31,10 @@
         <argument
             android:name="ifscCode"
             app:argType="string" />
+        <action
+            android:id="@+id/action_bankDetailsFragment_to_banksFragment"
+            app:destination="@id/banksFragment"
+            app:popUpTo="@id/banksFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

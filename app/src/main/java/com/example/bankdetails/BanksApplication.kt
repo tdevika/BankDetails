@@ -37,7 +37,6 @@ class BanksApplication : Application(), DIAware {
             interceptor
         }
 
-
         bind<OkHttpClient>("httpClient") with singleton {
             val client = OkHttpClient
                 .Builder()
@@ -57,6 +56,5 @@ class BanksApplication : Application(), DIAware {
         bind<BanksApiService>("apiService") with singleton {
             instance<Retrofit>("retrofit").create(BanksApiService::class.java)
         }
-
     }
 }
