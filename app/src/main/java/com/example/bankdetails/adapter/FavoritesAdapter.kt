@@ -22,10 +22,6 @@ class FavoritesAdapter(val bankSelectedDelegate: BankSelected) :
         holder.bind(getItem(position))
     }
 
-    fun getBankAt(position: Int): String {
-        return getItem(position).ifsc
-    }
-
     inner class FavouriteViewHolder(val binding: ItemBanksBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favoriteBank: FavoriteBank) {

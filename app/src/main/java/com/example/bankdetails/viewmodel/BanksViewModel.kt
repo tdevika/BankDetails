@@ -53,7 +53,7 @@ class BanksViewModel(application: Application) : AndroidViewModel(application), 
         getFavoriteBanks()
     }
 
-     fun getFavoriteBanks() {
+    fun getFavoriteBanks() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 banksDao.getFavoriteBank().collectLatest {
@@ -99,11 +99,21 @@ class BanksViewModel(application: Application) : AndroidViewModel(application), 
         }
     }
 
-    fun deleteFavorite(bank: String) {
+    fun getIfscCode(position: Int): String? {
+        return favorites.value?.get(position)?.ifsc
+    }
+
+    fun deleteFavorite(ifsc: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                banksDao.deleteFavoriteBank(bank)
+                banksDao.deleteFavoriteBank(ifsc)
             }
         }
+    }
+
+    fun isValidPosition(position: Int): Boolean {
+        return favorites.value?.let {
+            position >= 0 && position < it.size
+        } ?: false
     }
 }
