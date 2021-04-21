@@ -8,10 +8,32 @@
             name="viewModel"
             type="com.example.bankdetails.viewmodel.BanksViewModel" />
     </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:contentInsetStart="0dp"
+        app:contentInsetStart="0dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:contentInsetStartWithNavigation="0dp">
+    </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -205,7 +227,28 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideline"
                     app:layout_constraintTop_toBottomOf="@id/state" />
+                <TextView
+                    android:id="@+id/micrLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="MICR"
+                    android:textSize="@dimen/space_16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/micr"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/micr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.bankDetails.micr}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideline"
+                    app:layout_constraintTop_toBottomOf="@id/address" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
