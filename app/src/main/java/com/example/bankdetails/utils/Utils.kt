@@ -7,7 +7,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 
-
+interface BankSelected {
+    fun onBankSelected(ifscCode: String)
+}
 
 fun Activity.hideSoftInput() {
     val imm: InputMethodManager? = getSystemService()

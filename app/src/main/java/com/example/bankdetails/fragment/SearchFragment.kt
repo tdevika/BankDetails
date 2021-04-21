@@ -3,7 +3,6 @@ package com.example.bankdetails.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentSearchBinding
+import com.example.bankdetails.utils.BankSelected
 import com.example.bankdetails.utils.hideSoftInput
 import com.example.bankdetails.utils.showSoftInput
 import com.example.bankdetails.viewmodel.BanksViewModel
@@ -48,6 +48,7 @@ class SearchFragment : Fragment(), BankSelected {
         binding.toolbar.searchView.apply {
             searchView.onActionViewExpanded()
             searchView.queryHint = "Search"
+
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     hideSoftInput()
@@ -91,12 +92,9 @@ class SearchFragment : Fragment(), BankSelected {
         }
     }
 
-
     override fun onBankSelected(ifscCode: String) {
         binding.root.findNavController().navigate(
-            SearchFragmentDirections.navigateToBankDetailsFragment(
-                ifscCode
-            )
+            SearchFragmentDirections.navigateToBankDetailsFragment(ifscCode)
         )
     }
 
@@ -106,6 +104,3 @@ class SearchFragment : Fragment(), BankSelected {
     }
 }
 
-interface BankSelected {
-    fun onBankSelected(ifscCode: String)
-}
