@@ -76,7 +76,13 @@ class BanksFragment : Fragment(),BankSelected {
                     builder.setTitle("Delete Bank")
                     builder.setMessage("Are you sure want to delete bank?")
                     builder.setPositiveButton("Confirm") { _, _ ->
-                        banksViewModel.deleteFavorite(favoritesAdapter.getBankAt(viewHolder.absoluteAdapterPosition))
+                        val position = viewHolder.absoluteAdapterPosition
+                        if(banksViewModel.isValidPosition(position)) {
+                            val ifsc = banksViewModel.getIfscCode(position)
+                            ifsc?.let {
+                                banksViewModel.deleteFavorite(ifsc)
+                            }
+                        }
                     }
                     builder.setNegativeButton("Cancel") { _, _ ->
                         val position = viewHolder.absoluteAdapterPosition
