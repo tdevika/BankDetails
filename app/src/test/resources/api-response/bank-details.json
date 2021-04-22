@@ -1,0 +1,18 @@
+{
+  "STATE": "KARNATAKA",
+  "UPI": true,
+  "MICR": "NA",
+  "RTGS": false,
+  "CITY": "DAKSHINA KANNADA",
+  "DISTRICT": "MANGALORE",
+  "SWIFT": "",
+  "ADDRESS": "REGD. & HEAD OFFICE, P.B.NO.599, MAHAVEER CIRCLE, KANKANADY, MANGALORE - 575002",
+  "NEFT": true,
+  "CENTRE": "NA",
+  "BRANCH": "Karnataka Bank IMPS",
+  "CONTACT": "2228222",
+  "IMPS": true,
+  "BANK": "Karnataka Bank",
+  "BANKCODE": "KARB",
+  "IFSC": "KARB0000001"
+}
