@@ -24,7 +24,7 @@ class SearchFragment : Fragment(), BankSelected {
         BanksAdapter(this)
     }
 
-    private val banksViewModel: BanksViewModel by viewModels({requireActivity()})
+    private val banksViewModel: BanksViewModel by viewModels({ requireActivity() })
     lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
@@ -54,6 +54,7 @@ class SearchFragment : Fragment(), BankSelected {
                     hideSoftInput()
                     return false
                 }
+
                 override fun onQueryTextChange(query: String): Boolean {
                     if (query.length > 2) {
                         banksViewModel.onSearchQueryChanged(query)
