@@ -25,12 +25,12 @@ fun Fragment.hideSoftInput() = requireActivity().hideSoftInput()
 fun View.showSoftInput() = (context.getSystemService(Context.INPUT_METHOD_SERVICE)
         as InputMethodManager).showSoftInput(this, InputMethodManager.SHOW_FORCED)
 
-fun isValidIFSCode(str: String?): Boolean {
-    val regex = "^[A-Z]{4}0[A-Z0-9]{6}$"
-    val pattern:Pattern = Pattern.compile(regex)
-    if (str.isNullOrEmpty()) {
+fun String.isValidIFSCode(): Boolean {
+    if (this.isEmpty()) {
         return false
     }
-    val matcher:Matcher = pattern.matcher(str)
+    val regex = "^[A-Z]{4}0[A-Z0-9]{6}$"
+    val pattern = Pattern.compile(regex)
+    val matcher = pattern.matcher(this)
     return matcher.matches()
 }

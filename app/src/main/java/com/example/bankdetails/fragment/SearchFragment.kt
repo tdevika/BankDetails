@@ -13,7 +13,6 @@ import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentSearchBinding
 import com.example.bankdetails.utils.BankSelected
 import com.example.bankdetails.utils.hideSoftInput
-import com.example.bankdetails.utils.isValidIFSCode
 import com.example.bankdetails.utils.showSoftInput
 import com.example.bankdetails.viewmodel.BanksViewModel
 import kotlinx.android.synthetic.main.fragment_search.view.*
