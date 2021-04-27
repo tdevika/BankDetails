@@ -9,8 +9,6 @@ import com.example.bankdetails.utils.DataSource
 import com.example.bankdetails.utils.TestCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,13 +17,13 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class BanksViewModelTest {
 
-    lateinit var banksViewModel: BanksViewModel
-    lateinit var fakeDataSource: FakeDataSource
-    private val coroutineDispatcher = TestCoroutineDispatcher()
+    private lateinit var banksViewModel: BanksViewModel
+    private lateinit var fakeDataSource: FakeDataSource
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    @ExperimentalCoroutinesApi
     @get:Rule
     var testCoroutineRule = TestCoroutineRule()
 
@@ -40,7 +38,7 @@ class BanksViewModelTest {
         banksViewModel = BanksViewModel(
             fakeDataSource,
             ApplicationProvider.getApplicationContext(),
-            mainCoroutineRule.dispatcher
+            testCoroutineRule.testCoroutineDispatcher
         )
     }
 
@@ -62,25 +60,45 @@ class BanksViewModelTest {
     }
 
     @Test
-    fun getBankDetails() {
+    fun getBankDetails_active_returnNotNull() {
         resetDataSorce()
         fakeDataSource.bankDetails = mutableListOf(DataSource.BANK_DETAILS)
-        val bankDetails = banksViewModel.getBankDetails(DataSource.BANK_DETAILS.ifsc)
-        assertThat(bankDetails).isNotNull()
+        banksViewModel.getBankDetails(DataSource.BANK_DETAILS.ifsc)
+        val value = banksViewModel.bankDetails.value
+        assertThat(value).isNotNull()
+    }
+    @Test
+    fun getBankDetails_empty_returnNull() {
+        resetDataSorce()
+        banksViewModel.getBankDetails(DataSource.BANK_DETAILS.ifsc)
+        val value = banksViewModel.bankDetails.value
+        assertThat(value).isNull()
+    }
+    @Test
+    fun getBankDetails_both_returnEqual() {
+        resetDataSorce()
+        fakeDataSource.bankDetails = mutableListOf(DataSource.BANK_DETAILS)
+        banksViewModel.getBankDetails(DataSource.BANK_DETAILS.ifsc)
+        assertThat(banksViewModel.bankDetails.value).isEqualTo(DataSource.BANK_DETAILS)
     }
 
     @Test
-    fun onSearchQueryChanged(){
+    fun onSearchQueryChanged_correctIfsc_returnTrue(){
         fakeDataSource.ifscList = DataSource.IFSC_DATA.toMutableList()
         banksViewModel.onSearchQueryChanged(DataSource.FAVORITE_BANK.ifsc)
         assertThat(banksViewModel.searchedBanks.value).contains(DataSource.FAVORITE_BANK.ifsc)
+    }
+
+    @Test
+    fun onSearchQueryChanged_IncorrectQuery_returnEmpty(){
+        fakeDataSource.ifscList = DataSource.IFSC_DATA.toMutableList()
         banksViewModel.onSearchQueryChanged("KARB0000011")
         assertThat(banksViewModel.searchedBanks.value).isEmpty()
     }
 
     @ExperimentalCoroutinesApi
     @Test
-    fun getFavoriteBanks() = mainCoroutineRule.dispatcher.runBlockingTest {
+    fun getFavoriteBanks() = testCoroutineRule.runBlockingTest {
         fakeDataSource.favBanks = DataSource.FAVORITE_BANKS
         banksViewModel.getFavoriteBanks()
         val value = banksViewModel.favorites.value

@@ -8,6 +8,9 @@ import com.example.bankdetails.utils.DataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.di
+
 
 class BanksViewModel(
     private val dataSource: DataSource,
