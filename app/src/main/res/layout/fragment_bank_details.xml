@@ -106,7 +106,7 @@
                     android:id="@+id/branchLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Branch "
+                    android:text="@string/branch"
                     android:textSize="@dimen/space_16sp"
                     app:layout_constraintBaseline_toBaselineOf="@id/branch"
                     app:layout_constraintStart_toStartOf="parent" />

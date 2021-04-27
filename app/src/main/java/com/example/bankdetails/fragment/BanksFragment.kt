@@ -5,8 +5,8 @@ import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,12 +16,21 @@ import com.example.bankdetails.R
 import com.example.bankdetails.adapter.FavoritesAdapter
 import com.example.bankdetails.databinding.FragmentBanksBinding
 import com.example.bankdetails.utils.BankSelected
+import com.example.bankdetails.utils.BanksViewModelFactory
 import com.example.bankdetails.viewmodel.BanksViewModel
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.di
+import org.kodein.di.instance
 
-class BanksFragment : Fragment(),BankSelected {
+class BanksFragment : Fragment(), BankSelected, DIAware {
+
     lateinit var binding: FragmentBanksBinding
 
-    private val banksViewModel: BanksViewModel by viewModels({ requireActivity() })
+    override val di by di()
+
+    private val viewModeFactory: BanksViewModelFactory by instance("banksViewModelFactory")
+
+    lateinit var banksViewModel: BanksViewModel
 
     private val favoritesAdapter: FavoritesAdapter by lazy {
         FavoritesAdapter(this)
@@ -32,6 +41,7 @@ class BanksFragment : Fragment(),BankSelected {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        banksViewModel = ViewModelProvider(this, viewModeFactory).get(BanksViewModel::class.java)
         binding = FragmentBanksBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         setHasOptionsMenu(true)
@@ -46,7 +56,7 @@ class BanksFragment : Fragment(),BankSelected {
     }
 
     private fun setObserver() {
-        banksViewModel.favorites.observe(viewLifecycleOwner, Observer {
+        banksViewModel.favorites.observe(viewLifecycleOwner,  {
             favoritesAdapter.submitList(it)
             if (it.isNotEmpty()) {
                 binding.emptyView.visibility = View.GONE
@@ -77,7 +87,7 @@ class BanksFragment : Fragment(),BankSelected {
                     builder.setMessage("Are you sure want to delete bank?")
                     builder.setPositiveButton("Confirm") { _, _ ->
                         val position = viewHolder.absoluteAdapterPosition
-                        if(banksViewModel.isValidPosition(position)) {
+                        if (banksViewModel.isValidPosition(position)) {
                             val ifsc = banksViewModel.getIfscCode(position)
                             ifsc?.let {
                                 banksViewModel.deleteFavorite(ifsc)
@@ -113,6 +123,10 @@ class BanksFragment : Fragment(),BankSelected {
     }
 
     override fun onBankSelected(ifscCode: String) {
-        findNavController().navigate(BanksFragmentDirections.actionBanksFragmentToBankDetailsFragment(ifscCode))
+        findNavController().navigate(
+            BanksFragmentDirections.actionBanksFragmentToBankDetailsFragment(
+                ifscCode
+            )
+        )
     }
 }

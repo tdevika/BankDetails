@@ -7,5 +7,5 @@ import retrofit2.http.Path
 interface BanksApiService {
 
     @GET("{url}")
-    suspend fun getBanks(@Path("url") url:String) :BankDetails
+    suspend fun getBankDetails(@Path("url") url:String) :BankDetails
 }

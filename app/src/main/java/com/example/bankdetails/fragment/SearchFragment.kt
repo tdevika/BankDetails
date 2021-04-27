@@ -6,25 +6,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bankdetails.adapter.BanksAdapter
 import com.example.bankdetails.databinding.FragmentSearchBinding
 import com.example.bankdetails.utils.BankSelected
+import com.example.bankdetails.utils.BanksViewModelFactory
 import com.example.bankdetails.utils.hideSoftInput
 import com.example.bankdetails.utils.showSoftInput
 import com.example.bankdetails.viewmodel.BanksViewModel
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.di
+import org.kodein.di.instance
 
 
-class SearchFragment : Fragment(), BankSelected {
+class SearchFragment : Fragment(), BankSelected, DIAware {
 
     private val banksAdapter: BanksAdapter by lazy {
         BanksAdapter(this)
     }
 
-    private val banksViewModel: BanksViewModel by viewModels({ requireActivity() })
+    override val di by di()
+
+    private val viewModeFactory: BanksViewModelFactory by instance("banksViewModelFactory")
+
+    lateinit var banksViewModel: BanksViewModel
+
     lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
@@ -32,6 +41,7 @@ class SearchFragment : Fragment(), BankSelected {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        banksViewModel = ViewModelProvider(this, viewModeFactory).get(BanksViewModel::class.java)
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -77,7 +87,7 @@ class SearchFragment : Fragment(), BankSelected {
     }
 
     private fun setObserver() {
-        banksViewModel.banks.observe(viewLifecycleOwner, {
+        banksViewModel.searchedBanks.observe(viewLifecycleOwner, {
             banksAdapter.submitList(it)
         })
     }
