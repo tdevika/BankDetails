@@ -14,4 +14,7 @@ interface BanksDao {
 
     @Query("delete from favorite_banks where ifsc is (:ifsc)")
     fun deleteFavoriteBank(ifsc:String)
+
+    @Query("SELECT EXISTS (SELECT 1 FROM favorite_banks WHERE ifsc is (:ifsc))")
+    fun isBankAddedToFav(ifsc: String): Boolean
 }

@@ -5,7 +5,10 @@ import androidx.room.Room
 import com.example.bankdetails.database.BanksDao
 import com.example.bankdetails.database.BanksDatabase
 import com.example.bankdetails.network.BanksApiService
+import com.example.bankdetails.utils.BankDataSource
+import com.example.bankdetails.utils.BanksViewModelFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +20,7 @@ class BanksApplication : Application(), DIAware {
 
     override val di by DI.lazy {
 
-        bind() from singleton {String()}
+        bind() from singleton { String() }
 
         bind<BanksDatabase>("database") with singleton {
             Room.databaseBuilder(
@@ -55,6 +58,14 @@ class BanksApplication : Application(), DIAware {
 
         bind<BanksApiService>("apiService") with singleton {
             instance<Retrofit>("retrofit").create(BanksApiService::class.java)
+        }
+
+        bind<BankDataSource>("bankDataSource") with singleton {
+            BankDataSource(instance("databaseDao"), instance("apiService"))
+        }
+
+        bind<BanksViewModelFactory>("banksViewModelFactory") with singleton {
+            BanksViewModelFactory(this@BanksApplication, instance("bankDataSource"), Dispatchers.IO )
         }
     }
 }

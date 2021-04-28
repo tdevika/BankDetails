@@ -11,4 +11,5 @@
     <string name="micr">MICR</string>
     <string name="search_for_bank_details">Search for Bank Details</string>
     <string name="search">Search</string>
+    <string name="branch">Branch</string>
 </resources>
