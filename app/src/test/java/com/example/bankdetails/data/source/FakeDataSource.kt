@@ -13,7 +13,7 @@ class FakeDataSource(
 ) : DataSource {
 
     override suspend fun getFavorites(): Flow<List<FavoriteBank>> {
-        return flow { favBanks}
+        return flow { emit(favBanks) }
     }
 
     override suspend fun getBankDetails(ifscCode: String): BankDetails {
@@ -28,8 +28,8 @@ class FakeDataSource(
         favBanks.add(favoriteBank)
     }
 
-    override suspend fun onSearchQueryChanged(query: String):List<String> {
-        return ifscList.filter { it.contains(query,true) }
+    override suspend fun onSearchQueryChanged(query: String): List<String> {
+        return ifscList.filter { it.contains(query, true) }
     }
 }
 
